@@ -238,7 +238,7 @@ The number of conversions that run at the same time is set with `PdfConverter.Pd
 
 Online: https://docs.html-to-pdf.net/anywhere-library/html/Remote-Engine.htm
 
-The conversion engines normally run on the machine the application runs on, from the **ExpertPdf.Anywhere.Native.<rid>** package. With `RenderingEngine.ChromiumRemote` the application sends that work over HTTP to the **ExpertPdf engine** instead - a service that ships as the container image `ghcr.io/expertpdf/engine` and runs on another machine, as another container, or beside the application in the same pod.
+The conversion engines normally run on the machine the application runs on, from the **ExpertPdf.Anywhere.Native.<rid>** package. With `RenderingEngine.ChromiumRemote` the application sends that work over HTTP to the **ExpertPdf engine** instead - a service that ships as the container image `ghcr.io/expertpdf-components/engine` and runs on another machine, as another container, or beside the application in the same pod.
 
 Every native operation goes to the engine: HTML to PDF and HTML to image (the Chromium engine), and PDF to text and PDF to image (the PDF tool). Everything else stays in the application and works as before: building the document, headers and footers, bookmarks, PDF/A and PDF/UA, security and signatures, Word, Excel and PowerPoint to PDF, redaction, forms - and the license check. The engine itself needs no license.
 
@@ -256,7 +256,7 @@ Start the engine with an access token:
 docker run -d --name expertpdf-engine -p 8080:8080 \
   --read-only --tmpfs /tmp \
   -e EXPERTPDF_ENGINE_TOKEN="$(openssl rand -base64 32)" \
-  ghcr.io/expertpdf/engine:22.0
+  ghcr.io/expertpdf-components/engine:22.0
 ```
 
 Then point the application at it, once at start-up. The conversion code does not change:
@@ -320,7 +320,7 @@ Dim pdf As Byte() = remoteConverter.GetPdfBytesFromUrl("https://www.example.com"
 
 ### Running the engine
 
-The image is `ghcr.io/expertpdf/engine` (mirrored on Docker Hub as `expertpdf/engine`), for **x64** and **arm64**. Use the tag of the library's version - `22.0.0`, or `22.0` for its latest build; an engine that does not speak the library's protocol is reported as such. The engine listens on port 8080, runs as a non-root user, works with a read-only file system and a writable `/tmp`, and needs no extra capabilities. It carries fonts for every language (the Noto family), so it renders every script without a fonts package.
+The image is `ghcr.io/expertpdf-components/engine` (mirrored on Docker Hub as `expertpdf/engine`), for **x64** and **arm64**. Use the tag of the library's version - `22.0.0`, or `22.0` for its latest build; an engine that does not speak the library's protocol is reported as such. The engine listens on port 8080, runs as a non-root user, works with a read-only file system and a writable `/tmp`, and needs no extra capabilities. It carries fonts for every language (the Noto family), so it renders every script without a fonts package.
 
 **Health:** `GET /health` answers 200 once the engine is ready to convert (the image's own `HEALTHCHECK` uses it), and 503 before that or when it cannot convert. `/healthz` answers the same. `GET /v1/info` (with the token) reports the engine's version, its Chromium version and its limits.
 
@@ -341,7 +341,7 @@ The image is `ghcr.io/expertpdf/engine` (mirrored on Docker Hub as `expertpdf/en
 ```text
 services:
   expertpdf-engine:
-    image: ghcr.io/expertpdf/engine:22.0
+    image: ghcr.io/expertpdf-components/engine:22.0
     read_only: true
     tmpfs:
       - /tmp
@@ -460,7 +460,7 @@ docker build -t myapp .
 docker run --rm -p 8080:8080 myapp
 ```
 
-> **Important:** Use a **glibc-based** Linux image (the default Debian / Ubuntu based `mcr.microsoft.com/dotnet` tags) for an application that runs the engines itself. **Alpine** (musl) images cannot run the native engines: an application on Alpine converts through the remote engine container (`ghcr.io/expertpdf/engine`) instead - see "The remote engine" (installation-and-deployment.md).
+> **Important:** Use a **glibc-based** Linux image (the default Debian / Ubuntu based `mcr.microsoft.com/dotnet` tags) for an application that runs the engines itself. **Alpine** (musl) images cannot run the native engines: an application on Alpine converts through the remote engine container (`ghcr.io/expertpdf-components/engine`) instead - see "The remote engine" (installation-and-deployment.md).
 
 #### Alternative: publish on the host, copy into the image
 

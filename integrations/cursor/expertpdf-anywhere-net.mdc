@@ -1,5 +1,5 @@
 ---
-description: Generate, edit and render PDFs in .NET (C# / VB.NET) with ExpertPdf Anywhere, the cross-platform ExpertPdf library (ExpertPdf.Anywhere plus ExpertPdf.Anywhere.Native.<rid>, or one ExpertPdf.Anywhere.Windows / .Linux / .Linux.Arm64 / .MacOS package; namespaces ExpertPdf.Anywhere.*) on Windows, Linux (x64, ARM64), macOS on Apple Silicon and Docker, or with the remote engine container ghcr.io/expertpdf/engine (Alpine / musl). Use for HTML to PDF and HTML to image with Chromium (PdfConverter, ImgConverter, sync or async), headers and footers with page numbers, bookmarks and automatic tables of contents, HTML forms to PDF form fields, Word, Excel, PowerPoint and RTF to PDF, PDF to Word, Excel and PowerPoint, building PDFs with Document, pages, text, images, shapes and templates, merging (PDFMerge) and splitting (PDFSplitManager), passwords, permissions and encryption, digital signatures (PFX, certificate store, PKCS#11 tokens, external signers, long-term validation) and signature validation (PdfSecurityManager), form filling, redaction, page resizing, portfolios, PDF to text, text search, PDF to image and image extraction, PDF/A-1a to PDF/A-4f, PDF/X-1a, tagged PDF/UA-1 and PDF/UA-2, and ZUGFeRD / Factur-X e-invoices. Trigger whenever a .NET app uses ExpertPdf.Anywhere, needs ExpertPdf on Linux, macOS or in containers, or ports code from the classic ExpertPdf products (ExpertPdf.HtmlToPdf, ExpertPdf.PdfCreator, ExpertPdf.MergePdf...).
+description: Generate, edit and render PDFs in .NET (C# / VB.NET) with ExpertPdf Anywhere, the cross-platform ExpertPdf library (ExpertPdf.Anywhere plus ExpertPdf.Anywhere.Native.<rid>, or one ExpertPdf.Anywhere.Windows / .Linux / .Linux.Arm64 / .MacOS package; namespaces ExpertPdf.Anywhere.*) on Windows, Linux (x64, ARM64), macOS on Apple Silicon and Docker, or with the remote engine container ghcr.io/expertpdf-components/engine (Alpine / musl). Use for HTML to PDF and HTML to image with Chromium (PdfConverter, ImgConverter, sync or async), headers and footers with page numbers, bookmarks and automatic tables of contents, HTML forms to PDF form fields, Word, Excel, PowerPoint and RTF to PDF, PDF to Word, Excel and PowerPoint, building PDFs with Document, pages, text, images, shapes and templates, merging (PDFMerge) and splitting (PDFSplitManager), passwords, permissions and encryption, digital signatures (PFX, certificate store, PKCS#11 tokens, external signers, long-term validation) and signature validation (PdfSecurityManager), form filling, redaction, page resizing, portfolios, PDF to text, text search, PDF to image and image extraction, PDF/A-1a to PDF/A-4f, PDF/X-1a, tagged PDF/UA-1 and PDF/UA-2, and ZUGFeRD / Factur-X e-invoices. Trigger whenever a .NET app uses ExpertPdf.Anywhere, needs ExpertPdf on Linux, macOS or in containers, or ports code from the classic ExpertPdf products (ExpertPdf.HtmlToPdf, ExpertPdf.PdfCreator, ExpertPdf.MergePdf...).
 globs:
 alwaysApply: false
 ---
@@ -25,7 +25,7 @@ Chromium. Current as of **v22.0**.
   APIs are close but not identical: do not mix the two, and do not give Anywhere code to a classic project or
   the reverse.
   - A classic project that must run on **Linux, macOS or in Docker** moves to ExpertPdf Anywhere: read
-    [`migrating-from-expertpdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md) (packages, namespaces, removed engine settings, images as bytes).
+    [`migrating-from-expertpdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md) (packages, namespaces, removed engine settings, images as bytes).
   - A classic project staying on Windows keeps its own API; the member names here are a guide only.
 
 Check the `.csproj`: `ExpertPdf.Anywhere*` = this skill; `ExpertPdf.HtmlToPdf*`, `ExpertPdf.PdfCreator*` and the
@@ -53,15 +53,15 @@ Native packages: `win-x64`, `win-x86`, `linux-x64`, `linux-arm64`, `osx-arm64`. 
 image extraction); an application that converts no HTML can reference the Tools package alone. **A project
 references one native package**: all of them install the engine into the same `Chromium-CEF-154.0.28` folder.
 To publish one app for several platforms, choose the package with a `Condition` on `$(RuntimeIdentifier)` and
-publish once per platform (see [`installation-and-deployment.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md)). The library targets .NET 11, 10, 9, 8
+publish once per platform (see [`installation-and-deployment.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md)). The library targets .NET 11, 10, 9, 8
 and .NET Standard 2.0 (.NET Framework 4.6.1+). Optional: `ExpertPdf.Anywhere.Fonts` adds Noto fonts for every
 script, for Linux and macOS hosts with no fonts installed (Docker images, AWS Lambda, Azure App Service on Linux).
 
 **Remote engine:** with `GlobalSettings.RenderingEngine = RenderingEngine.ChromiumRemote`,
 `GlobalSettings.EngineEndpoint` and `GlobalSettings.EngineAccessToken` (or the `EXPERTPDF_RENDERING_ENGINE`,
 `EXPERTPDF_ENGINE_ENDPOINT`, `EXPERTPDF_ENGINE_TOKEN` environment variables), HTML to PDF / image and PDF to
-text / image run in the `ghcr.io/expertpdf/engine:22.0` container and the application needs no native package.
-This is the supported way to run on **Alpine / musl** Linux. See [`installation-and-deployment.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md),
+text / image run in the `ghcr.io/expertpdf-components/engine:22.0` container and the application needs no native package.
+This is the supported way to run on **Alpine / musl** Linux. See [`installation-and-deployment.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md),
 "The remote engine".
 
 > **Platform limits for the native engines:** glibc-based Linux only (glibc 2.30+: Ubuntu 20.04+, Debian 11+,
@@ -148,30 +148,30 @@ Rules that always apply:
 
 | Task | Reference |
 |---|---|
-| Packages (one per platform, or managed + native), requirements, license key, the Chromium engine and its in-process / out-of-process modes, the remote engine container, fonts and languages, deployment to Windows, IIS, Linux, macOS, Docker, Azure, AWS, Google Cloud | [`installation-and-deployment.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md) |
-| Port code from the classic ExpertPdf products (packages, namespaces, removed engine settings, images as bytes, other differences) | [`migrating-from-expertpdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md) |
-| Convert a URL / HTML string / file; PdfConverter methods and options; page size, margins, orientation, document info, page breaks, repeating table headers, JavaScript and delays, start from JavaScript, fine control, conversion summary, JPEG compression, color space, HTML forms to PDF fields, prepend / append PDFs, post-convert changes, async, multithreading | [`html-to-pdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-pdf.md) |
-| Headers, footers, page numbering, HTML / text / image / Word areas in them | [`headers-footers.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/headers-footers.md) |
-| Live links, internal links, automatic bookmarks, automatic table of contents, document bookmarks | [`links-bookmarks-toc.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/links-bookmarks-toc.md) |
-| HTML element positions in the PDF; excluding elements, converting part of a page; authentication, login forms, cookies, HTTP headers, proxy | [`web-elements-and-auth.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/web-elements-and-auth.md) |
-| Render a web page or HTML to an image (`ImgConverter`) | [`html-to-image.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-image.md) |
-| Build or edit a PDF: `Document`, pages, coordinates, templates, text and fonts, images, shapes, HTML and HTML-image elements | [`pdf-creation-elements.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/pdf-creation-elements.md) |
-| Word (DOCX, DOC, RTF, markdown...), RTF, Excel and PowerPoint to PDF; the matching page elements | [`office-to-pdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/office-to-pdf.md) |
-| PDF to Word, Excel and PowerPoint | [`pdf-to-office.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/pdf-to-office.md) |
-| Merge (`Document.AppendDocument`, `PDFMerge`) and split (`PDFSplitManager`); resize pages; portfolios; page objects; layers | [`edit-merge-split.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/edit-merge-split.md) |
-| Passwords, permissions, RC4 / AES encryption; digital signatures (PFX, certificate store, PKCS#11, external signers, timestamps, long-term validation), signature validation, the signature element | [`security-and-signatures.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/security-and-signatures.md) |
-| Fill and flatten PDF forms | [`forms.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/forms.md) |
-| Remove content by text, regular expression or area | [`redaction.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/redaction.md) |
-| PDF to text, text search, PDF to image, image extraction | [`extract-text-image-search.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/extract-text-image-search.md) |
-| PDF/A (1a to 4f), PDF/X-1a, tagged PDF and PDF/UA-1 / PDF/UA-2, ZUGFeRD / Factur-X invoices | [`accessibility-and-compliance.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/accessibility-and-compliance.md) |
-| Frequently asked questions, troubleshooting | [`troubleshooting-faq.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/troubleshooting-faq.md) |
+| Packages (one per platform, or managed + native), requirements, license key, the Chromium engine and its in-process / out-of-process modes, the remote engine container, fonts and languages, deployment to Windows, IIS, Linux, macOS, Docker, Azure, AWS, Google Cloud | [`installation-and-deployment.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/installation-and-deployment.md) |
+| Port code from the classic ExpertPdf products (packages, namespaces, removed engine settings, images as bytes, other differences) | [`migrating-from-expertpdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md) |
+| Convert a URL / HTML string / file; PdfConverter methods and options; page size, margins, orientation, document info, page breaks, repeating table headers, JavaScript and delays, start from JavaScript, fine control, conversion summary, JPEG compression, color space, HTML forms to PDF fields, prepend / append PDFs, post-convert changes, async, multithreading | [`html-to-pdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-pdf.md) |
+| Headers, footers, page numbering, HTML / text / image / Word areas in them | [`headers-footers.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/headers-footers.md) |
+| Live links, internal links, automatic bookmarks, automatic table of contents, document bookmarks | [`links-bookmarks-toc.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/links-bookmarks-toc.md) |
+| HTML element positions in the PDF; excluding elements, converting part of a page; authentication, login forms, cookies, HTTP headers, proxy | [`web-elements-and-auth.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/web-elements-and-auth.md) |
+| Render a web page or HTML to an image (`ImgConverter`) | [`html-to-image.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-image.md) |
+| Build or edit a PDF: `Document`, pages, coordinates, templates, text and fonts, images, shapes, HTML and HTML-image elements | [`pdf-creation-elements.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/pdf-creation-elements.md) |
+| Word (DOCX, DOC, RTF, markdown...), RTF, Excel and PowerPoint to PDF; the matching page elements | [`office-to-pdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/office-to-pdf.md) |
+| PDF to Word, Excel and PowerPoint | [`pdf-to-office.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/pdf-to-office.md) |
+| Merge (`Document.AppendDocument`, `PDFMerge`) and split (`PDFSplitManager`); resize pages; portfolios; page objects; layers | [`edit-merge-split.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/edit-merge-split.md) |
+| Passwords, permissions, RC4 / AES encryption; digital signatures (PFX, certificate store, PKCS#11, external signers, timestamps, long-term validation), signature validation, the signature element | [`security-and-signatures.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/security-and-signatures.md) |
+| Fill and flatten PDF forms | [`forms.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/forms.md) |
+| Remove content by text, regular expression or area | [`redaction.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/redaction.md) |
+| PDF to text, text search, PDF to image, image extraction | [`extract-text-image-search.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/extract-text-image-search.md) |
+| PDF/A (1a to 4f), PDF/X-1a, tagged PDF and PDF/UA-1 / PDF/UA-2, ZUGFeRD / Factur-X invoices | [`accessibility-and-compliance.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/accessibility-and-compliance.md) |
+| Frequently asked questions, troubleshooting | [`troubleshooting-faq.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/troubleshooting-faq.md) |
 
 ## Gotchas (read before debugging)
 
 - **Classic code does not compile** -> it uses `ExpertPdf.HtmlToPdf` without `.Anywhere`, `System.Drawing`
   types, or engine settings that only WebKit / Blink / Internet Explorer read (`FitWidth`, `EmbedFonts`,
   `AvoidImageBreak`, `InternetSecurityZone`, `ProxyOptions.Type`...). Change the namespaces and remove those
-  lines: see [`migrating-from-expertpdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md).
+  lines: see [`migrating-from-expertpdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/migrating-from-expertpdf.md).
 - **Engine not found / conversion fails on Linux or macOS** -> the native package of that runtime is missing, or
   two native packages fight over one folder. Reference the right `ExpertPdf.Anywhere.Native.<rid>` (one per
   project), or set `PdfConverter.CefEnginePath` to the `Chromium-CEF-154.0.28` folder. On Alpine / musl, use the
@@ -185,7 +185,7 @@ Rules that always apply:
   Anywhere always renders with Chromium and fits the page to the PDF width. Control pagination with CSS
   (`break-before`, `break-after`, `break-inside: avoid`).
 - **Content cut or missing on a JavaScript page** -> raise `PdfConverter.ConversionDelay`, or wait for
-  a condition; see "JavaScript and page loading" in [`html-to-pdf.md`](https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-pdf.md).
+  a condition; see "JavaScript and page loading" in [`html-to-pdf.md`](https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/html-to-pdf.md).
 - **Several users' pages share cached content** -> the HTTP cache is kept between in-process conversions by
   default; a multi-tenant service should set `PdfConverter.HttpCache = HttpCacheMode.Clear`.
 - **A page needs WebGL** -> set `WebGlEnabled = true` (with `ForceOutOfProcess = true` if the in-process engine
@@ -207,7 +207,7 @@ https://docs.html-to-pdf.net/anywhere-library/html/Index.htm. Support: office@ht
 
 ## Full reference (open the relevant file)
 
-Base: `https://github.com/expertpdf/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/`
+Base: `https://github.com/expertpdf-components/ai-tools/blob/main/plugins/expertpdf/skills/expertpdf-anywhere-net/reference/`
 
 - `accessibility-and-compliance.md`
 - `edit-merge-split.md`

@@ -4,7 +4,7 @@ description: >-
   Generate, edit and render PDFs in .NET (C# / VB.NET) with ExpertPdf Anywhere, the cross-platform ExpertPdf
   library (ExpertPdf.Anywhere plus ExpertPdf.Anywhere.Native.<rid>, or one ExpertPdf.Anywhere.Windows / .Linux /
   .Linux.Arm64 / .MacOS package; namespaces ExpertPdf.Anywhere.*) on Windows, Linux (x64, ARM64), macOS on Apple
-  Silicon and Docker, or with the remote engine container ghcr.io/expertpdf/engine (Alpine / musl). Use for HTML
+  Silicon and Docker, or with the remote engine container ghcr.io/expertpdf-components/engine (Alpine / musl). Use for HTML
   to PDF and HTML to image with Chromium (PdfConverter, ImgConverter, sync or async), headers and footers with
   page numbers, bookmarks and automatic tables of contents, HTML forms to PDF form fields, Word, Excel,
   PowerPoint and RTF to PDF, PDF to Word, Excel and PowerPoint, building PDFs with Document, pages, text, images,
@@ -73,7 +73,7 @@ script, for Linux and macOS hosts with no fonts installed (Docker images, AWS La
 **Remote engine:** with `GlobalSettings.RenderingEngine = RenderingEngine.ChromiumRemote`,
 `GlobalSettings.EngineEndpoint` and `GlobalSettings.EngineAccessToken` (or the `EXPERTPDF_RENDERING_ENGINE`,
 `EXPERTPDF_ENGINE_ENDPOINT`, `EXPERTPDF_ENGINE_TOKEN` environment variables), HTML to PDF / image and PDF to
-text / image run in the `ghcr.io/expertpdf/engine:22.0` container and the application needs no native package.
+text / image run in the `ghcr.io/expertpdf-components/engine:22.0` container and the application needs no native package.
 This is the supported way to run on **Alpine / musl** Linux. See `reference/installation-and-deployment.md`,
 "The remote engine".
 
