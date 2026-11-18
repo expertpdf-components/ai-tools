@@ -1,6 +1,9 @@
 <p align="center">
-  <a href="https://www.html-to-pdf.net">
-    <img src="images/logos/expertpdf-icon.png" alt="ExpertPdf" height="96">
+  <a href="https://www.html-to-pdf.net/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="images/logos/expertpdf-logo-dark.svg">
+      <img src="images/logos/expertpdf-logo.svg" alt="ExpertPdf" height="72">
+    </picture>
   </a>
 </p>
 
