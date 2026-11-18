@@ -1,0 +1,33 @@
+{
+  "name": "expertpdf",
+  "owner": {
+    "name": "ExpertPdf",
+    "url": "https://www.html-to-pdf.net"
+  },
+  "metadata": {
+    "description": "AI tools for ExpertPdf — skills that teach AI coding assistants to use the ExpertPdf .NET libraries correctly.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "expertpdf",
+      "source": "./plugins/expertpdf",
+      "description": "Expert skills for ExpertPdf Anywhere, the cross-platform ExpertPdf library for .NET (Windows, Linux, macOS on Apple Silicon, Docker, remote engine container): HTML to PDF and image, Word, Excel, PowerPoint and RTF to PDF, PDF to Word, Excel and PowerPoint, PDF creation and editing, merge and split, form filling, digital signatures and validation, redaction, encryption, PDF to text/image, PDF/A, PDF/X, tagged PDF/UA, ZUGFeRD / Factur-X. C# and VB.NET.",
+      "version": "22.0.0",
+      "category": "development",
+      "keywords": [
+        "cross-platform",
+        "csharp",
+        "docker",
+        "dotnet",
+        "expertpdf",
+        "html-to-pdf",
+        "linux",
+        "pdf",
+        "pdf-generation",
+        "vb.net",
+        "word-to-pdf"
+      ]
+    }
+  ]
+}
